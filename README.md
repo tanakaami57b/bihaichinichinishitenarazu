@@ -1,5 +1,7 @@
 # 美は一日にしてならず
-画面遷移図：https://www.figma.com/design/zDMd2TMtB7HEtqacyeTkMj/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=1-2&t=Ya5p2MORWIZaZ39B-1
+画面遷移図：https://www.figma.com/design/zDMd2TMtB7HEtqacyeTkMj/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=1-2&t=Ya5p2MORWIZaZ39B-1　<br>
+ER図：
+https://drive.google.com/file/d/1oKoXNzW9eA32e6GrzM2jYngdAlG0VFPJ/view?usp=sharing
 ### ■サービス概要
 『美は一日にしてならず』は、日常のプラスαで美を磨きたい、全ての人をサポートする自分磨きアプリです。<br>
 ユーザー同士がスキンケアのコツや健康的な習慣など、美に関する情報を共有し合えるコミュニティを提供します。<br>
