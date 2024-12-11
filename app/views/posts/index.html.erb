@@ -1,0 +1,21 @@
+<div class="container mx-auto pt-8">
+  <div class="mb-6">
+    <!-- 検索フォーム -->
+    <form class="flex gap-2">
+      <input type="search" placeholder="検索ワード" class="input input-bordered w-full" />
+      <button type="submit" class="btn btn-primary">検索</button>
+    </form>
+  </div>
+
+  <!-- 投稿一覧 -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% if @posts.present? %>
+    <%= render @posts %>
+    <% else %>
+        <div>
+          <i class="bi bi-exclamation-circle"></i>
+          投稿はありません
+      </div>
+    <% end %>
+  </div>
+</div>

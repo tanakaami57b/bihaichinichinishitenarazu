@@ -4,12 +4,6 @@
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
 
-      <!-- 名前フィールド -->
-      <div class="form-control">
-        <%= f.label :name, "お名前", class: "label font-medium" %>
-        <%= f.text_field :name, autofocus: true, class: "input input-bordered w-full" %>
-      </div>
-
       <!-- メールアドレスフィールド -->
       <div class="form-control">
         <%= f.label :email, "メールアドレス", class: "label font-medium" %>
