@@ -2,19 +2,33 @@
   <div class="flex-1">
     <a class="btn btn-ghost text-xl">美は一日にしてならず</a>
   </div>
+
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
-      <li><a>ログイン</a></li>
-      <li><a>ユーザー登録</a></li>
-      <li>
-        <details>
-          <summary>Parent</summary>
-          <ul class="bg-base-100 rounded-t-none p-2">
-            <li><a>Link 1</a></li>
-            <li><a>Link 2</a></li>
-          </ul>
-        </details>
-      </li>
+
+      <%# ユーザーがログインしていない場合 %>
+      <% unless user_signed_in? %>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
+        <li><%= link_to "ユーザー登録", new_user_registration_path %></li>
+      <% end %>
+
+      <%# ユーザーがログインしている場合 %>
+      <% if user_signed_in? %>
+        <li>
+          <details>
+            <summary>メニュー</summary>
+            <ul class="bg-base-100 rounded-t-none p-2">
+              <li><a>Link 1</a></li>
+              <li>
+                <%= link_to "ログアウト", destroy_user_session_path,
+                            method: :delete,
+                            data: { turbo_method: :delete } %>
+              </li>
+            </ul>
+          </details>
+        </li>
+      <% end %>
+
     </ul>
   </div>
 </div>
