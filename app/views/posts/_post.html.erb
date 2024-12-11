@@ -1,0 +1,27 @@
+<div class="col-span-1 lg:col-span-1 mb-6">
+  <div id="post-id-<%= post.id %>" class="card shadow-md">
+    <figure>
+      <%= image_tag post.image_url || "300200.png", class: "w-full h-48 object-cover" %>
+    </figure>
+    <div class="card-body">
+      <div class="flex justify-between items-center">
+        <h2 class="card-title">
+          <%= link_to post.title, '#' %>
+        </h2>
+        <div class="flex space-x-2">
+          <%= link_to '#', id: "button-edit-#{post.id}" do %>
+            <i class="bi bi-pencil-fill text-blue-600"></i>
+          <% end %>
+          <%= link_to '#', id: "button-delete-#{post.id}", method: :delete, data: {confirm: '本当に削除しますか？'} do %>
+            <i class="bi bi-trash-fill text-red-600"></i>
+          <% end %>
+        </div>
+      </div>
+      <ul class="list-none space-y-1 text-gray-600">
+        <li><i class="bi bi-person"></i> <%= post.user.decorate.full_name %></li>
+        <li><i class="bi bi-calendar"></i> <%= l post.created_at, format: :short %></li>
+      </ul>
+      <p class="card-text text-gray-800 mt-2"><%= post.content.truncate(100) %></p>
+    </div>
+  </div>
+</div>

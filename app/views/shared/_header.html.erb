@@ -1,6 +1,6 @@
 <div class="navbar bg-base-100">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl">美は一日にしてならず</a>
+  <%= link_to safe_join(['美は一日に', tag.br,'してならず']), root_path, class: 'btn btn-ghost' %>
   </div>
 
   <div class="flex-none">
@@ -17,8 +17,8 @@
         <li>
           <details>
             <summary>メニュー</summary>
-            <ul class="bg-base-100 rounded-t-none p-2">
-              <li><a>Link 1</a></li>
+            <ul class="bg-base-100 rounded-t-none p-'2">
+              <li><%= link_to "投稿一覧", posts_path %></li>
               <li>
                 <%= link_to "ログアウト", destroy_user_session_path,
                             method: :delete,
