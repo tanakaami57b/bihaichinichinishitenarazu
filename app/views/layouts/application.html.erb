@@ -20,6 +20,12 @@
 
   <body>
   <%= render 'shared/header' %>
+  <!-- フラッシュメッセージ表示 (application.html.erb) -->
+<% flash.each do |key, message| %>
+  <div class="alert alert-<%= key %> shadow-lg mb-4">
+    <span><%= message %></span>
+  </div>
+<% end %>
     <%= yield %>
     <%= render 'shared/footer' %>
   </body>
