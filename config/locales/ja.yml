@@ -11,3 +11,30 @@ ja:
       post:
         title: タイトル
         content: 内容
+
+    enums:
+      post:
+        required_cost:
+          free: "０円"
+          under_1000: "1000円未満"
+          from_1000_to_5000: "1000円以上〜5000円以内"
+          from_5000_to_10000: "5000円以上〜10000円以内"
+          over_10000: "10000円以上"
+
+        required_time:
+          three_min: "３分"
+          five_min: "５分"
+          ten_min: "１０分"
+          thirty_min: "３０分"
+          one_hour: "１時間"
+          one_and_half_hour: "１時間半"
+          over_two_hours: "２時間以上"
+
+        parts:
+          skin: "肌"
+          head: "頭"
+          face: "顔"
+          upper_body: "上半身"
+          lower_body: "下半身"
+          whole_body: "全身"
+          other: "その他"
