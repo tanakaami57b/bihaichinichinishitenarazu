@@ -1,0 +1,42 @@
+<div class="container mx-auto px-4">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6"><%= "新規投稿" %></h1>
+    <%= form_with model: @post, class: "space-y-6" do |f| %>
+      <div class="form-control w-full">
+        <%= f.label :title, "タイトル（行うこと）※必須", class: "label font-semibold" %>
+        <%= f.text_field :title, class: "input input-bordered w-full" %>
+      </div>
+
+      <div class="form-control w-full">
+        <%= f.label :content, "詳しい内容  ※必須", class: "label font-semibold" %>
+        <%= f.text_area :content, class: "textarea textarea-bordered w-full h-40" %>
+      </div>
+
+      <div class="form-control w-full">
+      <%= f.label :required_time, "所要時間(おおよそ)", class: "label font-semibold" %>
+      <%= f.select :required_time, Post.required_times.keys.map { |k| [Post.human_enum_name(:required_time, k), k] }, { prompt: "未選択" }, class: "select select-bordered w-full" %>
+    </div>
+
+    <div class="form-control w-full">
+      <%= f.label :required_cost, "所要金額(おおよそ)", class: "label font-semibold" %>
+      <%= f.select :required_cost, Post.required_costs.keys.map { |k| [Post.human_enum_name(:required_cost, k), k] }, { prompt: "未選択" }, class: "select select-bordered w-full" %>
+    </div>
+
+    <div class="form-control w-full">
+      <%= f.label :parts, "部位", class: "label font-semibold" %>
+      <%= f.select :parts, Post.parts.keys.map { |k| [Post.human_enum_name(:parts, k), k] }, { prompt: "未選択" }, class: "select select-bordered w-full" %>
+    </div>
+
+
+
+      <!-- <div class="form-control w-full">
+        <%= f.label :image_url, "Image URL", class: "label font-semibold" %>
+        <%= f.text_field :image_url, class: "input input-bordered w-full" %>
+      </div> -->
+
+      <div class="form-control">
+        <%= f.submit "投稿", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
