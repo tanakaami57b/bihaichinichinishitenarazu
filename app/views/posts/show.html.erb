@@ -1,0 +1,50 @@
+<div class="container mx-auto pt-10">
+  <div class="mb-8 max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">投稿詳細</h1>
+    <div class="card shadow-xl">
+    <!---  <figure>
+      <img src="<%= @post.image_url %>" alt="Post Image" class="w-full h-64 object-cover">
+      </figure> --->
+      <div class="card-body p-6">
+        <h2 class="card-title text-2xl font-bold"><%= @post.title %></h2>
+        <ul class="flex gap-4 text-sm text-gray-500">
+          <li><%= @post.user.name %></li>
+          <li><%= l @post.created_at, format: :long %></li>
+        </ul>
+        <div class="flex justify-end gap-4 mt-4">
+          <%= link_to "#", id: "button-edit-#{@post.id}", class: "btn btn-primary btn-sm" do %>
+            <i class="bi bi-pencil-fill"></i> 編集
+          <% end %>
+          <%= link_to "#", id: "button-delete-#{@post.id}", class: "btn btn-error btn-sm" do %>
+            <i class="bi bi-trash-fill"></i> 削除
+          <% end %>
+        </div>
+        <p class="mt-6 text-lg leading-relaxed"><%= simple_format(@post.content) %></p>
+        <div class="grid grid-cols-2 gap-4 mt-6">
+        <div class="stat">
+        <div class="stat-title">所要時間</div>
+        <div class="stat-value text-xl"><%= t("activerecord.enums.post.required_time.#{@post.required_time}") %></div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">所要金額</div>
+        <div class="stat-value text-xl"><%= t("activerecord.enums.post.required_cost.#{@post.required_cost}") %></div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">効果のある部位</div>
+        <div class="stat-value text-xl"><%= t("activerecord.enums.post.parts.#{@post.parts}") %></div>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%# コメント一覧 %>
+  <div class="mb-8 max-w-4xl mx-auto">
+    <h2 class="text-2xl font-bold mb-4">コメント</h2>
+    <table class="table table-zebra w-full">
+      <tbody id="table-comment">
+        <%# コメント一覧 %>
+      </tbody>
+    </table>
+  </div>
+</div>
