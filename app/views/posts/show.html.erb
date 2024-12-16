@@ -21,18 +21,21 @@
         </div>
         <p class="mt-6 text-lg leading-relaxed"><%= simple_format(@post.content) %></p>
         <div class="grid grid-cols-2 gap-4 mt-6">
+
         <div class="stat">
         <div class="stat-title">所要時間</div>
-        <div class="stat-value text-xl"><%= t("activerecord.enums.post.required_time.#{@post.required_time}") %></div>
+        <div class="stat-value text-xl"><%= display_enum(@post.required_time, "required_time") %></div>
       </div>
       <div class="stat">
         <div class="stat-title">所要金額</div>
-        <div class="stat-value text-xl"><%= t("activerecord.enums.post.required_cost.#{@post.required_cost}") %></div>
+        <div class="stat-value text-xl"><%= display_enum(@post.required_cost, "required_cost") %></div>
       </div>
       <div class="stat">
         <div class="stat-title">効果のある部位</div>
-        <div class="stat-value text-xl"><%= t("activerecord.enums.post.parts.#{@post.parts}") %></div>
+        <div class="stat-value text-xl"><%= display_enum(@post.parts, "parts") %></div>
       </div>
+
+
         </div>
       </div>
     </div>
