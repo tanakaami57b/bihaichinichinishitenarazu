@@ -48,14 +48,37 @@
 
         <!-- 編集と削除ボタン -->
         <div class="flex justify-end gap-4 mt-4">
-          <% if current_user && current_user.own?(@post) %>
-            <%= link_to edit_post_path(@post), class: "btn btn-primary btn-sm" do %>
-              編集
-            <% end %>
-            <button class="btn btn-error btn-sm" onclick="document.getElementById('delete_modal_<%= @post.id %>').showModal()">
-              削除
-            </button>
-          <% end %>
+        <% if current_user && current_user.own?(@post) %>
+        <!-- 編集ボタン -->
+        <%= link_to edit_post_path(@post), class: "btn btn-primary btn-sm" do %>
+          <i class="bi bi-pencil-fill"></i> 編集
+        <% end %>
+        <!-- 削除ボタン -->
+        <button class="btn btn-error btn-sm" onclick="document.getElementById('delete_modal_<%= @post.id %>').showModal()">
+          <i class="bi bi-trash-fill"></i> 削除
+        </button>
+        <!-- モーダルウィンドウ -->
+        <dialog id="delete_modal_<%= @post.id %>" class="modal">
+          <div class="modal-box">
+            <h3 class="text-lg font-bold">投稿を削除しますか？</h3>
+            <p class="py-4">この操作は取り消せません。続行する場合は「削除」をクリックしてください。</p>
+            <div class="modal-action">
+              <!-- キャンセルボタン -->
+              <form method="dialog">
+                <button class="btn">キャンセル</button>
+              </form>
+              <!-- 削除リンク -->
+              <%= link_to post_path(@post),
+            method: :delete,
+            data: { confirm: "本当に削除しますか？", turbo_method: :delete },
+            class: "btn btn-error" do %>
+  <i class="bi bi-trash-fill"></i> 削除
+<% end %>
+            </div>
+          </div>
+        </dialog>
+      <% end %>
+
         </div>
       </div>
     </div>
