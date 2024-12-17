@@ -13,8 +13,9 @@
     </p>
   </td>
 
-  <% if current_user && current_user.own?(comment) %>
-    <td class="p-4 text-right align-top">
+  <!-- 編集・削除ボタン用の列 -->
+  <td class="p-4 text-right align-top">
+    <% if current_user && current_user.own?(comment) %>
       <div class="flex justify-end gap-2">
         <!-- 編集リンク -->
         <%= link_to edit_comment_path(comment), class: "btn btn-ghost btn-sm edit-comment-link" do %>
@@ -43,6 +44,6 @@
           </div>
         </dialog>
       </div>
-    </td>
-  <% end %>
+    <% end %>
+  </td>
 </tr>

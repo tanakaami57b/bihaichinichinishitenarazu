@@ -31,4 +31,12 @@ class Post < ApplicationRecord
     belongs_to :user
     has_many :comments, dependent: :destroy
     has_many :bookmarks, dependent: :destroy
+
+    def self.ransackable_attributes(auth_object = nil)
+      %w[content created_at id image_url parts required_cost required_time title updated_at user_id]
+    end
+
+    def self.ransackable_associations(auth_object = nil)
+      %w[user comments bookmarks]
+    end
 end

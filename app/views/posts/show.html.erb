@@ -80,11 +80,20 @@
 
 
   <div class="mb-8 max-w-4xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4">コメント</h2>
-    <table class="table table-zebra w-full">
-      <tbody id="table-comment">
+  <h2 class="text-2xl font-bold mb-4">コメント</h2>
+  <table class="table table-zebra w-full">
+    <tbody id="table-comment">
+      <% if @comments.any? %>
         <%= render @comments %>
-      </tbody>
-    </table>
-  </div>
+      <% else %>
+        <tr>
+          <td colspan="2" class="text-center text-gray-500 py-4">
+            コメントはまだありません。
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
 </div>
