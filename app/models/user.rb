@@ -27,4 +27,8 @@ class User < ApplicationRecord
     bookmark_posts.include?(post)
   end
 
+  def icon_image
+    profile_image_url.presence || 'icon1.png'
+  end
+
 end

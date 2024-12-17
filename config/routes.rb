@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   end
 end
 resources :bookmarks, only: %i[create destroy]
+resource :profile, only: %i[show edit update]
+
 
   # Defines the root path route ("/")
   root 'static_pages#top'

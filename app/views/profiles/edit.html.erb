@@ -1,0 +1,54 @@
+<div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+  <h1 class="text-3xl font-bold mb-4 text-center">プロフィール編集</h1>
+
+  <div class="max-w-md mx-auto bg-gray-100 p-6 rounded-lg shadow-lg">
+    <%= form_with(model: @user, url: profile_path, method: :patch, local: true, data: { turbo: false }) do |f| %>
+
+      <!-- エラーメッセージの表示 -->
+      <% if @user.errors.any? %>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- 名前の編集フィールド -->
+      <div class="mb-4">
+        <%= f.label :name, "名前", class: "block text-gray-700" %>
+        <%= f.text_field :name, class: "w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+
+      <!-- アイコンの選択肢 -->
+
+
+
+      <!-- プレビューエリア -->
+      <div class="mb-4">
+        <h3 class="text-lg ">現在のアイコン</h3>
+       <img
+  id="icon_preview"
+  src="<%= asset_path(@user.icon_image) %>"
+  alt="アイコンのプレビュー"
+  class="w-24 h-24 rounded-full"
+/>
+
+      </div>
+
+
+
+      <!-- 更新ボタン -->
+      <div class="flex justify-end">
+        <%= f.submit "更新", class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" %>
+      </div>
+    <% end %>
+
+    <!-- キャンセルボタン -->
+    <div class="flex justify-end mt-4">
+      <%= link_to 'キャンセル', profile_path, class: "bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600", data: { turbo: false } %>
+
+    </div>
+  </div>
+</div>
