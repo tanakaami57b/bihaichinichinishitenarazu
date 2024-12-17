@@ -30,6 +30,8 @@ gem 'ransack', '4.2.1'
 
 gem 'kaminari', '1.2.2'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'meta-tags'
+
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
