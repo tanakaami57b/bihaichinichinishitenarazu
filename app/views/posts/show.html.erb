@@ -1,6 +1,5 @@
 <div class="container mx-auto pt-10">
   <div class="mb-8 max-w-4xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6">投稿詳細</h1>
     <div class="card shadow-xl">
     <!---  <figure>
       <img src="<%= @post.image_url %>" alt="Post Image" class="w-full h-64 object-cover">
@@ -12,16 +11,43 @@
           <li><%= l @post.created_at, format: :long %></li>
         </ul>
         <div class="flex justify-end gap-4 mt-4">
-  <% if current_user && current_user.own?(@post) %>
-    <%= link_to "#", id: "button-edit-#{@post.id}", class: "btn btn-primary btn-sm" do %>
-      <i class="bi bi-pencil-fill"></i> 編集
-    <% end %>
+        <% if current_user && current_user.own?(@post) %>
+        <!-- 編集ボタン -->
+        <%= link_to edit_post_path(@post), class: "btn btn-primary btn-sm" do %>
+          <i class="bi bi-pencil-fill"></i> 編集
+        <% end %>
 
-    <%= link_to "#", id: "button-delete-#{@post.id}", class: "btn btn-error btn-sm" do %>
-      <i class="bi bi-trash-fill"></i> 削除
-    <% end %>
-  <% end %>
+        <!-- 削除ボタン -->
+        <button class="btn btn-error btn-sm" onclick="document.getElementById('delete_modal_<%= @post.id %>').showModal()">
+          <i class="bi bi-trash-fill"></i> 削除
+        </button>
+
+        <!-- モーダルウィンドウ -->
+        <dialog id="delete_modal_<%= @post.id %>" class="modal">
+          <div class="modal-box">
+            <h3 class="text-lg font-bold">投稿を削除しますか？</h3>
+            <p class="py-4">この操作は取り消せません。続行する場合は「削除」をクリックしてください。</p>
+            <div class="modal-action">
+              <!-- キャンセルボタン -->
+              <form method="dialog">
+                <button class="btn">キャンセル</button>
+              </form>
+
+              <!-- 削除リンク -->
+              <%= link_to post_path(@post),
+            method: :delete,
+            data: { confirm: "本当に削除しますか？", turbo_method: :delete },
+            class: "btn btn-error" do %>
+  <i class="bi bi-trash-fill"></i> 削除
+<% end %>
+
+            </div>
+          </div>
+        </dialog>
+      <% end %>
+
 </div>
+
         <p class="mt-6 text-lg leading-relaxed"><%= simple_format(@post.content) %></p>
         <div class="grid grid-cols-2 gap-4 mt-6">
 

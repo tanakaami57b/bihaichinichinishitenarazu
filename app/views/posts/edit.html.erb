@@ -1,0 +1,54 @@
+<div class="container mx-auto pt-10">
+  <div class="mb-8 max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">投稿編集</h1>
+
+    <%= form_with model: @post, local: true, class: "space-y-6" do |f| %>
+
+      <!-- タイトル -->
+      <div class="form-control w-full">
+        <%= f.label :title, "タイトル（行うこと）※必須", class: "label font-semibold" %>
+        <%= f.text_field :title, class: "input input-bordered w-full" %>
+      </div>
+
+      <!-- 内容 -->
+      <div class="form-control w-full">
+        <%= f.label :content, "詳しい内容  ※必須", class: "label font-semibold" %>
+        <%= f.text_area :content, class: "textarea textarea-bordered w-full h-40" %>
+      </div>
+
+      <!-- 所要時間 -->
+<div class="form-control w-full">
+  <%= f.label :required_time, "所要時間(おおよそ)", class: "label font-semibold" %>
+  <%= f.select :required_time,
+               [["未選択", nil]] + Post.required_times.keys.map { |k| [Post.human_enum_name(:required_time, k), k] },
+               { selected: @post.required_time },
+               class: "select select-bordered w-full" %>
+</div>
+
+<!-- 所要金額 -->
+<div class="form-control w-full">
+  <%= f.label :required_cost, "所要金額(おおよそ)", class: "label font-semibold" %>
+  <%= f.select :required_cost,
+               [["未選択", nil]] + Post.required_costs.keys.map { |k| [Post.human_enum_name(:required_cost, k), k] },
+               { selected: @post.required_cost },
+               class: "select select-bordered w-full" %>
+</div>
+
+
+      <!-- 部位 -->
+      <div class="form-control w-full">
+      <%= f.label :parts, "部位", class: "label font-semibold" %>
+      <%= f.select :parts,
+                   [["未選択", nil]] + Post.parts.keys.map { |k| [Post.human_enum_name(:parts, k), k] },
+                   { selected: @post.parts },
+                   class: "select select-bordered w-full" %>
+    </div>
+
+      <!-- ボタン -->
+      <div class="flex justify-end gap-4">
+        <%= link_to "キャンセル", post_path(@post), class: "btn btn-outline" %>
+        <%= f.submit "更新", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
