@@ -22,7 +22,8 @@ class PostsController < ApplicationController
 
     def show
       @post = Post.find(params[:id]) # 修正: params[:id] を使用
-      @user = @post.user
+      @comment = Comment.new
+      @comments = @post.comments.includes(:user).order(created_at: :desc)
     end
 
 

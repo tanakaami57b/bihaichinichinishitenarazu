@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   # Render dynamic PWA files from app/views/pwa/*
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  resources :posts, only: %i[index new create show]
+  resources :posts, only: %i[index new create show edit update destroy] do
+    resources :comments, only: %i[create edit update destroy], shallow: true
+  end
 
   # Defines the root path route ("/")
   root 'static_pages#top'

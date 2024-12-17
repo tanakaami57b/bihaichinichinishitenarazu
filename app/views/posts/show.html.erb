@@ -12,13 +12,16 @@
           <li><%= l @post.created_at, format: :long %></li>
         </ul>
         <div class="flex justify-end gap-4 mt-4">
-          <%= link_to "#", id: "button-edit-#{@post.id}", class: "btn btn-primary btn-sm" do %>
-            <i class="bi bi-pencil-fill"></i> 編集
-          <% end %>
-          <%= link_to "#", id: "button-delete-#{@post.id}", class: "btn btn-error btn-sm" do %>
-            <i class="bi bi-trash-fill"></i> 削除
-          <% end %>
-        </div>
+  <% if current_user && current_user.own?(@post) %>
+    <%= link_to "#", id: "button-edit-#{@post.id}", class: "btn btn-primary btn-sm" do %>
+      <i class="bi bi-pencil-fill"></i> 編集
+    <% end %>
+
+    <%= link_to "#", id: "button-delete-#{@post.id}", class: "btn btn-error btn-sm" do %>
+      <i class="bi bi-trash-fill"></i> 削除
+    <% end %>
+  <% end %>
+</div>
         <p class="mt-6 text-lg leading-relaxed"><%= simple_format(@post.content) %></p>
         <div class="grid grid-cols-2 gap-4 mt-6">
 
@@ -41,12 +44,20 @@
     </div>
   </div>
 
-  <%# コメント一覧 %>
+  <!-- コメント投稿フォーム (ログイン済みのみ) -->
+  <% if user_signed_in? %>
+    <%= render 'comments/form', comment: @comment, post: @post %>
+  <% else %>
+    <p class="text-gray-500">コメントを投稿するにはログインが必要です。</p>
+    <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
+  <% end %>
+
+
   <div class="mb-8 max-w-4xl mx-auto">
     <h2 class="text-2xl font-bold mb-4">コメント</h2>
     <table class="table table-zebra w-full">
       <tbody id="table-comment">
-        <%# コメント一覧 %>
+        <%= render @comments %>
       </tbody>
     </table>
   </div>
