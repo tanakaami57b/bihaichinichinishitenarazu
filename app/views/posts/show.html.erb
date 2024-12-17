@@ -61,3 +61,30 @@
     </div>
   </div>
 </div>
+ <!-- コメント投稿フォーム (ログイン済みのみ) -->
+  <% if user_signed_in? %>
+    <%= render 'comments/form', comment: @comment, post: @post %>
+  <% else %>
+    <p class="text-gray-500">コメントを投稿するにはログインが必要です。</p>
+    <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
+  <% end %>
+
+
+  <div class="mb-8 max-w-4xl mx-auto">
+  <h2 class="text-2xl font-bold mb-4">コメント</h2>
+  <table class="table table-zebra w-full">
+    <tbody id="table-comment">
+      <% if @comments.any? %>
+        <%= render @comments %>
+      <% else %>
+        <tr>
+          <td colspan="2" class="text-center text-gray-500 py-4">
+            コメントはまだありません。
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+</div>
