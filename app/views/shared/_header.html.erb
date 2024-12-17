@@ -1,37 +1,38 @@
 <div class="navbar bg-base-100">
   <div class="flex-1">
-  <%= link_to safe_join(['美は一日に', tag.br,'してならず']), root_path, class: 'btn btn-ghost' %>
+    <%= link_to safe_join(['美は一日に', tag.br, 'してならず']), root_path, class: 'btn btn-ghost' %>
   </div>
 
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
-
-      <%# ユーザーがログインしていない場合 %>
       <% unless user_signed_in? %>
         <li><%= link_to "ログイン", new_user_session_path %></li>
         <li><%= link_to "ユーザー登録", new_user_registration_path %></li>
       <% end %>
 
-      <%# ユーザーがログインしている場合 %>
       <% if user_signed_in? %>
-      <li>
-      <details class="relative z-50"> <!-- 追加 -->
-        <summary>メニュー</summary>
-        <ul class="bg-base-100 rounded-t-none p-2 absolute z-50">
-          <li><%= link_to "投稿一覧", posts_path %></li>
-          <li><%= link_to "新規投稿", new_post_path %></li>
-          <li><%= link_to "これやる！リスト", bookmarks_posts_path %></li>
-          <li>
-            <%= link_to "ログアウト", destroy_user_session_path,
-                        method: :delete,
-                        data: { turbo_method: :delete } %>
-          </li>
-        </ul>
-      </details>
-    </li>
+        <li>
+          <details class="relative z-50">
+            <summary>メニュー</summary>
+            <ul class="bg-base-100 rounded-t-none p-2 absolute z-50 w-40">
+              <li class="whitespace-nowrap overflow-hidden text-ellipsis truncate"><%= link_to "マイページ", profile_path %></li>
+              <li class="whitespace-nowrap overflow-hidden text-ellipsis truncate"><%= link_to "投稿一覧", posts_path %></li>
+              <li class="whitespace-nowrap overflow-hidden text-ellipsis truncate"><%= link_to "新規投稿", new_post_path %></li>
+              <li class="whitespace-nowrap overflow-hidden text-ellipsis truncate"><%= link_to "これやる！リスト", bookmarks_posts_path %></li>
+              <li class="whitespace-nowrap overflow-hidden text-ellipsis truncate">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %>
+              </li>
+            </ul>
+          </details>
+        </li>
 
+        <!-- ユーザーアイコン -->
+        <div>
+          <%= link_to profile_path, class: "block w-12 h-12 rounded-full shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105" do %>
+            <%= image_tag "icon1.png", alt: "User Icon", class: "w-full h-full rounded-full object-cover" %>
+          <% end %>
+        </div>
       <% end %>
-
     </ul>
   </div>
 </div>
