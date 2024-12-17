@@ -1,10 +1,7 @@
 <div class="container mx-auto pt-8">
   <div class="mb-6">
     <!-- 検索フォーム -->
-    <form class="flex gap-2">
-      <input type="search" placeholder="検索ワード" class="input input-bordered w-full" />
-      <button type="submit" class="btn btn-primary">検索</button>
-    </form>
+  <%= render 'search_form', q: @q, url: posts_path %>
   </div>
 
   <!-- 投稿一覧 -->
