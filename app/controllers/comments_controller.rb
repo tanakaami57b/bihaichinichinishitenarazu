@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
 
     def destroy
       @comment.destroy
-      redirect_to post_path(@comment.post), notice: "コメントを削除しました"
+      redirect_to post_path(@comment.post), notice: "コメントを削除しました！"
     end
 
     private

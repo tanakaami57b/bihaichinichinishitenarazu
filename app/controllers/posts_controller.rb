@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
-    # ログインを必須にしないアクションを指定
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  # ログインを必須にしないアクションを指定
+  skip_before_action :authenticate_user!, only: %i[index show]
+  before_action :set_post, only: %i[show edit update destroy]
 
   def new
     @post = Post.new
@@ -16,18 +17,39 @@ class PostsController < ApplicationController
     end
   end
 
-    def index
-        @posts = Post.includes(:user)
-      end
+  def index
+    @posts = Post.includes(:user)
+  end
 
-    def show
-      @post = Post.find(params[:id]) # 修正: params[:id] を使用
-      @comment = Comment.new
-      @comments = @post.comments.includes(:user).order(created_at: :desc)
+  def show
+    @comment = Comment.new
+    @comments = @post.comments.includes(:user).order(created_at: :desc)
+  end
+
+  def edit
+    # @post は before_action によって設定済み
+  end
+
+  def update
+    if @post.update(post_params)
+      redirect_to post_path(@post), notice: "投稿を更新しました！"
+    else
+      flash.now[:alert] = "投稿の更新に失敗しました。"
+      render :edit, status: :unprocessable_entity
     end
+  end
 
+  def destroy
+    @post.destroy
+    redirect_to posts_path, notice: "投稿を削除しました！"
+  end
 
   private
+
+  def set_post
+    @post = Post.find_by(id: params[:id])
+    redirect_to posts_path, alert: "投稿が見つかりませんでした。" if @post.nil?
+  end
 
   def post_params
     params.require(:post).permit(:title, :content, :required_time, :required_cost, :parts, :image_url)
