@@ -1,36 +1,24 @@
 class CommentsController < ApplicationController
-    # コメント投稿、編集、削除はログイン必須
     before_action :authenticate_user!
+    before_action :set_post, only: [:create]
+    before_action :set_comment, only: %i[edit update destroy]
+    before_action :authorize_user!, only: %i[edit update destroy]
 
     def create
-        post = Post.find_by(id: params[:post_id])
+      comment = current_user.comments.build(comment_params.merge(post: @post))
 
-        if post.nil?
-          redirect_to posts_path, alert: "投稿が見つかりませんでした。"
-          return
-        end
-
-        comment = current_user.comments.build(comment_params.merge(post: post))
-
-        if comment.save
-          redirect_to post_path(post), notice: "コメントしました！"
-        else
-          redirect_to post_path(post), alert: "コメントの投稿に失敗しました"
-        end
-      end
-      
-
-    def edit
-      @comment = current_user.comments.find_by(id: params[:id])
-      if @comment.nil?
-        redirect_to posts_path, alert: "編集するコメントが見つかりませんでした。"
+      if comment.save
+        redirect_to post_path(@post), notice: "コメントしました！"
+      else
+        redirect_to post_path(@post), alert: "コメントの投稿に失敗しました"
       end
     end
 
-    def update
-      @comment = current_user.comments.find_by(id: params[:id])
+    def edit
+    end
 
-      if @comment&.update(comment_params)
+    def update
+      if @comment.update(comment_params)
         redirect_to post_path(@comment.post), notice: "コメントを更新しました！"
       else
         flash.now[:alert] = "コメントの更新に失敗しました。"
@@ -39,16 +27,27 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-      comment = current_user.comments.find_by(id: params[:id])
-
-      if comment&.destroy
-        redirect_to post_path(comment.post), notice: "コメントを削除しました"
-      else
-        redirect_to post_path(comment.post), alert: "コメントの削除に失敗しました"
-      end
+      @comment.destroy
+      redirect_to post_path(@comment.post), notice: "コメントを削除しました"
     end
 
     private
+
+    def set_post
+      @post = Post.find_by(id: params[:post_id])
+      redirect_to posts_path, alert: "投稿が見つかりませんでした。" if @post.nil?
+    end
+
+    def set_comment
+      @comment = Comment.find_by(id: params[:id])
+      redirect_to posts_path, alert: "コメントが見つかりませんでした。" if @comment.nil?
+    end
+
+    def authorize_user!
+      unless current_user&.own?(@comment)
+        redirect_to posts_path, alert: "操作は許可されていません。"
+      end
+    end
 
     def comment_params
       params.require(:comment).permit(:content)
