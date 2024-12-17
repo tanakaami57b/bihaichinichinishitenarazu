@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  # モダンブラウザ制限
-  allow_browser versions: :modern
 
   # ログイン必須 & Devise用パラメータ許可
   before_action :authenticate_user!

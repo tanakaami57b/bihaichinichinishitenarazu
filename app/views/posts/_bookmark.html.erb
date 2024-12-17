@@ -1,0 +1,5 @@
+<%= form_with url: bookmarks_path(post_id: post.id), method: :post, local: true, class: "inline" do %>
+    <%= button_tag type: "submit", class: "p-0 border-none bg-transparent" do %>
+      <%= image_tag "off.png", alt: "ブックマーク追加", class: "w-8 h-8" %>
+    <% end %>
+  <% end %>

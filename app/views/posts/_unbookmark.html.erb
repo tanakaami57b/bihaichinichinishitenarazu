@@ -1,0 +1,6 @@
+<% bookmark = current_user.bookmarks.find_by(post_id: post.id) %>
+<%= form_with url: bookmark_path(bookmark), method: :delete, local: true, class: "inline" do %>
+  <%= button_tag type: "submit", class: "p-0 border-none bg-transparent", data: { confirm: "本当に解除しますか？" } do %>
+    <%= image_tag "on.png", alt: "ブックマーク解除", class: "w-8 h-8" %>
+  <% end %>
+<% end %>
